@@ -2,17 +2,28 @@ plugins {
   id 'org.springframework.boot' version '2.2.5.RELEASE'
   id 'io.spring.dependency-management' version '1.0.9.RELEASE'
   id 'java'
+  id 'checkstyle'
 }
 
 group = 'com.twilio'
-version = '0.0.1-SNAPSHOT'
+version = '1.0.0'
 sourceCompatibility = '1.8'
 
 configurations {
+  checkstyleConfig
   developmentOnly
   runtimeClasspath {
     extendsFrom developmentOnly
   }
+}
+
+def versions = [
+  checkstyle: '8.30',
+]
+
+checkstyle {
+  toolVersion = "${versions.checkstyle}"
+  config = resources.text.fromArchiveEntry(configurations.checkstyleConfig, 'google_checks.xml')
 }
 
 repositories {
@@ -23,12 +34,19 @@ dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
   implementation 'org.springframework.boot:spring-boot-starter-web'
   implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+  implementation 'com.twilio.sdk:twilio:7.42.0'
+  implementation 'com.google.guava:guava:28.2-jre'
+  testImplementation 'org.seleniumhq.selenium:selenium-chrome-driver:3.141.59'
+  testImplementation 'org.seleniumhq.selenium:selenium-support:3.141.59'
+  testImplementation 'io.github.bonigarcia:webdrivermanager:3.8.1'
   developmentOnly 'org.springframework.boot:spring-boot-devtools'
   testImplementation('org.springframework.boot:spring-boot-starter-test') {
     exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
   }
+  checkstyleConfig("com.puppycrawl.tools:checkstyle:${versions.checkstyle}") { transitive = false }
 }
 
 test {
   useJUnitPlatform()
+  testLogging.showStandardStreams true
 }

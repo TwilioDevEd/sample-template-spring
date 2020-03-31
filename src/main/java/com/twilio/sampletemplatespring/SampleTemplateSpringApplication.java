@@ -7,7 +7,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SampleTemplateSpringApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(SampleTemplateSpringApplication.class, args);
+    SpringApplication application = 
+      new SpringApplication(SampleTemplateSpringApplication.class);
+    application.setAdditionalProfiles("local");
+    application.run(args);
   }
 
 }

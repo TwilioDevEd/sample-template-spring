@@ -26,4 +26,4 @@ public class SampleResponse {
   public String getMessage() {
     return message;
   }
-} 
+}

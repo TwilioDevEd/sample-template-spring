@@ -4,7 +4,7 @@
  
 # Twilio Sample App Template
 
-[![Actions Status](https://github.com/TwilioDevEd/sample-template-rails/workflows/Spring%20CI/badge.svg)](https://github.com/TwilioDevEd/sample-template-spring/actions)
+[![Actions Status](https://github.com/TwilioDevEd/sample-template-spring/workflows/Spring%20CI/badge.svg)](https://github.com/TwilioDevEd/sample-template-spring/actions)
 
 ## About
 
@@ -34,7 +34,7 @@ We can render UML diagrams using [Mermaid](https://mermaidjs.github.io/).
 - [Spring Framework](https://spring.io/) version 5.2.5
 - [Spring Boot](https://spring.io/projects/spring-boot) version 2.2.5 to easily create and configure production-grade Spring based Applications.
 - Build and dependency management using [Gradle](https://gradle.org/)
-- User interface to send SMS with bootstrap.
+- User interface to send SMS with bootstrap and [Thymeleaf](https://www.thymeleaf.org/).
 - Unit tests using [Junit5](https://junit.org/junit5/) and [Hamcrest](http://hamcrest.org/JavaHamcrest/)
 - Mocking framework using [Mockito](https://site.mockito.org/)
 - End to End UI testing using [Selenium](https://www.selenium.dev/)

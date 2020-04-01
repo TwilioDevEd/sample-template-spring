@@ -91,6 +91,7 @@ After the above requirements have been met:
     ```bash
     ./gradlew build
     ```
+    **NOTE:** Running the build task will also run the tests
 
 1. Run the application
 

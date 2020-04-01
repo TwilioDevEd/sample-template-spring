@@ -12,7 +12,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        java: [ 8, 8.0.192, 9.0.x, 10, 11.0.x, 11.0.3, 12, 13 ]
+        java: [ 8, 9, 10, 11, 12, 13 ]
 
     steps:
       - name: Checkout code
@@ -26,10 +26,4 @@ jobs:
         run: ./gradlew build
       - name: Build with Gradle (Windows)
         if: runner.os == 'Windows'
-        run: gradlew.bat build
-      - name: Run tests (Linux / Mac)
-        if: runner.os == 'Linux' || runner.os == 'macOs'
-        run: ./gradlew test
-      - name: Run tests (Windows)
-        if: runner.os == 'Windows'
-        run: gradlew.bat test
+        run: .\gradlew.bat build

@@ -46,14 +46,8 @@ public class SampleController {
   @ResponseBody
   public ResponseEntity<SampleResponse> sendSMS(@RequestBody SmsMessage input) {
     try {
-      String responseMessage = new StringBuilder()
-          .append("SMS sent to ")
-          .append(input.getRecipient())
-          .append(". ")
-          .append("Message SID: ")
-          .append(twilioClientWrapper.sendMessage(input))
-          .toString();
-  
+      String sid = twilioClientWrapper.sendMessage(input);
+      String responseMessage = String.format("SMS sent to %s. Message SID: %s", input.getRecipient(), sid);
       SampleResponse sampleResponse = new SampleResponse("success", responseMessage);
       return new ResponseEntity<SampleResponse>(sampleResponse, HttpStatus.OK);
     } catch (Exception e) {

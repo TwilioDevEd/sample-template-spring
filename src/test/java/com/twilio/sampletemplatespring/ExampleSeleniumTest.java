@@ -35,6 +35,8 @@ public class ExampleSeleniumTest {
   @LocalServerPort
   private int port;
 
+  private String hostUrl;
+
   private WebDriver driver;
 
   @MockBean
@@ -50,6 +52,8 @@ public class ExampleSeleniumTest {
     ChromeOptions options = new ChromeOptions();
     options.addArguments("headless");
     driver = new ChromeDriver(options);
+
+    hostUrl = String.format("http://localhost:%s/", port);
   }
 
   @AfterEach
@@ -61,38 +65,44 @@ public class ExampleSeleniumTest {
 
   @Test
   public void sendMessageInvalidNumber() {
+    // Arrange
     when(twilioClientWrapper.sendMessage(any(SmsMessage.class))).thenThrow(new ApiException("fakeMessageSid"));
-    driver.get("http://localhost:" + port + "/");
-    WebElement phoneNumber = driver.findElement(By.name("to"));
-    phoneNumber.sendKeys("111");
-    WebElement body = driver.findElement(By.name("body"));
-    body.sendKeys("Test Message");
-    WebElement submit = driver.findElement(By.cssSelector("button[type=\"submit\"]"));
-    submit.click();
+    driver.get(hostUrl);
+    driver.findElement(By.name("to")).sendKeys("111");
+    driver.findElement(By.name("body")).sendKeys("Test Message");
+
+    // Act
+    driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
+
+    // Assert
     WebElement dialog = new WebDriverWait(driver, 3)
         .until(driver -> driver.findElement(By.className("alert-danger")));
-    assertThat(dialog.getAttribute("class"), not(containsString("d-none")));
     WebElement dialogTitle = driver.findElement(By.id("dialogTitle"));
     WebElement dialogContent = driver.findElement(By.id("dialogContent"));
+
+    assertThat(dialog.getAttribute("class"), not(containsString("d-none")));
     assertThat(dialogTitle.getText(), containsString("Error"));
     assertThat(dialogContent.getText(), containsString("Failed to send SMS."));
   }
 
   @Test
   public void sendMessageValidNumber() {
+    // Arrange
     when(twilioClientWrapper.sendMessage(any(SmsMessage.class))).thenReturn("fakeSid");
-    driver.get("http://localhost:" + port + "/");
-    WebElement phoneNumber = driver.findElement(By.name("to"));
-    phoneNumber.sendKeys("111");
-    WebElement body = driver.findElement(By.name("body"));
-    body.sendKeys("Test Message");
-    WebElement submit = driver.findElement(By.cssSelector("button[type=\"submit\"]"));
-    submit.click();
+    driver.get(hostUrl);
+    driver.findElement(By.name("to")).sendKeys("111");
+    driver.findElement(By.name("body")).sendKeys("Test Message");
+
+    // Act
+    driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
+
+    // Assert
     WebElement dialog = new WebDriverWait(driver, 3)
         .until(driver -> driver.findElement(By.className("alert-success")));
-    assertThat(dialog.getAttribute("class"), not(containsString("d-none")));
     WebElement dialogTitle = driver.findElement(By.id("dialogTitle"));
     WebElement dialogContent = driver.findElement(By.id("dialogContent"));
+
+    assertThat(dialog.getAttribute("class"), not(containsString("d-none")));
     assertThat(dialogTitle.getText(), containsString("SMS Sent!"));
     assertThat(dialogContent.getText(), containsString("SMS sent to 111."));
   }

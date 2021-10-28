@@ -18,6 +18,10 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
+    env:
+      TWILIO_ACCOUNT_SID: ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+      TWILIO_AUTH_TOKEN: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+      TWILIO_PHONE_NUMBER: +15552737123
 
     steps:
       - name: Checkout code

@@ -39,7 +39,7 @@ We can render UML diagrams using [Mermaid](https://mermaidjs.github.io/).
 - Mocking framework using [Mockito](https://site.mockito.org/)
 - End to End UI testing using [Selenium](https://www.selenium.dev/)
 - [Automated CI testing using GitHub Actions](/.github/workflows/spring.yml)
-- Project specific environment variables using `application-local.properties`.
+- Project specific environment variables using `.env.example`.
 - One click deploy button for Heroku.
 
 ## How to use it
@@ -82,9 +82,17 @@ After the above requirements have been met:
 1. Set your environment variables
 
     ```bash
-    cp src/main/resources/application.properties src/main/resources/application-local.properties
+    cp .env.example .env
     ```
     See [Twilio Account Settings](#twilio-account-settings) to locate the necessary environment variables.
+
+    If you are using a UNIX operating system, load the environment variables before the application starts.
+
+    ```bash
+    source .env
+    ```
+
+    _If you are using a different operating system, make sure that all the variables from the `.env` file are loaded into your environment._
 
 1. Build the project
 

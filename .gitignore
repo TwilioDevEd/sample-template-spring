@@ -6,6 +6,7 @@ bin
 !**/src/main/**
 !**/src/test/**
 application-local.properties
+.env
 
 ### STS ###
 .apt_generated

@@ -20,9 +20,9 @@ public class TwilioClientWrapper {
   private String accountSid;
 
   public TwilioClientWrapper(
-      @Value("${TWILIO_AUTH_TOKEN}") String authToken,
-      @Value("${TWILIO_ACCOUNT_SID}") String accountSid,
-      @Value("${TWILIO_PHONE_NUMBER}") String phoneNumber) {
+      @Value("${environment.TWILIO_AUTH_TOKEN}") String authToken,
+      @Value("${environment.TWILIO_ACCOUNT_SID}") String accountSid,
+      @Value("${environment.TWILIO_PHONE_NUMBER}") String phoneNumber) {
     this.authToken = authToken;
     this.accountSid = accountSid;
     this.phoneNumber = phoneNumber;
